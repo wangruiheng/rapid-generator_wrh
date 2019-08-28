@@ -19,6 +19,7 @@ import com.github.pagehelper.PageInfo;
 import ${basepackage}.${subpackage}.model.${className};
 import ${basepackage}.${subpackage}.service.${className}Service;
 import ${basepackage}.${subpackage}.exception.ResultUtils;
+import ${basepackage}.${subpackage}.utils.ListCopyUtil;
 /**
  * @version 1.0
  * @author wrh
@@ -31,13 +32,15 @@ public class ${className}Controller{
     @Autowired
     private ${className}Service ${classNameLower}Service;
     
+    @SuppressWarnings("unchecked")
 	@RequestMapping(value = "/list.json")
 	@ResponseBody
 	public Object list(HttpServletRequest request,${className} ${classNameLower}) {
 		PageHelper.startPage(${classNameLower}.getPage(), ${classNameLower}.getLimit());
 		List<${className}> list = ${classNameLower}Service.listPage(${classNameLower});
+		List<${basepackage}.${subpackage}.vo.${className}> listvo = ListCopyUtil.CopyList(list, new ${basepackage}.${subpackage}.vo.${className}());
 		PageInfo<${className}> pageInfo = new PageInfo<${className}>(list);
-		return ResultUtils.successlist(list,pageInfo.getTotal());
+		return ResultUtils.successlist(listvo,pageInfo.getTotal());
 	}
 
 	@RequestMapping(value = "/add.json", method = RequestMethod.POST)

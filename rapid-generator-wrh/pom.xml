@@ -9,11 +9,11 @@
     <version>3.9.2</version>
 
     <dependencies>
-    	<dependency>
-            <groupId>org.rapid.rapid-generator</groupId>
-            <artifactId>rapid-generator</artifactId>
-            <version>1.1.1</version>
-        </dependency>
+    	<dependency>  
+            <groupId>com.googlecode.rapid-framework</groupId>  
+            <artifactId>rapid-generator</artifactId>  
+            <version>4.0.6</version>  
+        </dependency>  
         <dependency>
             <groupId>org.freemarker</groupId>
             <artifactId>freemarker</artifactId>
