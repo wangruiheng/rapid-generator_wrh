@@ -34,7 +34,6 @@ public class ${className}Controller{
     
     @SuppressWarnings("unchecked")
 	@RequestMapping(value = "/list.json")
-	@ResponseBody
 	public Object list(HttpServletRequest request,${className} ${classNameLower}) {
 		PageHelper.startPage(${classNameLower}.getPage(), ${classNameLower}.getLimit());
 		List<${className}> list = ${classNameLower}Service.listPage(${classNameLower});
