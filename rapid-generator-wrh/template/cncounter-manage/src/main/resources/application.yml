@@ -1,0 +1,44 @@
+<#include "/java_copyright.include">
+<#assign className = table.className>
+<#assign classNameLower = className?uncap_first>
+<#assign shortName = table.shortName>
+server:
+  port: 8089
+  tomcat:
+    uri-encoding: UTF-8
+spring:
+  application:
+    name: ${subpackage_dir}-server
+  mvc:
+    view:
+      prefix: classpath*:/templates/
+      suffix: .html
+    static-path-pattern: /**
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT&nullNamePatternMatchesAll=true
+    username: root
+    password: tiger
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+  messages:
+    encoding: UTF-8 
+      
+mybatis:
+  mapper-locations: classpath*:mapper/dao/mysql/*Mapper.xml
+  type-aliases-package: ${basepackage}.${subpackage}.model
+  
+logging:
+  pattern:
+    level: DEBUG 
+
+pagehelper: 
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+      

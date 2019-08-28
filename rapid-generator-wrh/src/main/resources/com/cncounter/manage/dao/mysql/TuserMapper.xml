@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cncounter.manage.dao.mysql.TuserMapper">
+
+	<resultMap id="BaseResultMap" type="com.cncounter.manage.model.Tuser">
+			<result property="password" column="password" jdbcType="VARCHAR"/>
+			<result property="userName" column="userName" jdbcType="VARCHAR"/>
+			<id property="id" column="id" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		password,userName,id
+	</sql>
+	
+	<select id="getById" parameterType="int" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from
+			t_user
+		where
+			id = #{id}
+	</select>
+	<select id="listPage" resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from t_user
+		where 1=1
+			<if test="_bean != null and _bean.password != null">
+			  and password = #{ _bean.password, jdbcType=VARCHAR }
+			</if>
+			<if test="_bean != null and _bean.userName != null">
+			  and userName = #{ _bean.userName, jdbcType=VARCHAR }
+			</if>
+			<if test="_bean != null and _bean.id != null">
+			  and id = #{ _bean.id, jdbcType=INTEGER }
+			</if>
+	</select>
+	
+	<update id="update" parameterType="com.cncounter.manage.model.Tuser">
+		update t_user
+		<set>
+			<if test="password != null">
+			  password = #{password, jdbcType=VARCHAR },
+			</if>
+			<if test="userName != null">
+			  userName = #{userName, jdbcType=VARCHAR },
+			</if>
+		</set>
+		where
+			id = #{id}
+	</update>
+	
+	<delete id="deleteById" parameterType="int">
+		delete from t_user 
+		where
+			id = #{id}
+	</delete>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		parameterType="com.cncounter.manage.model.Tuser">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="password != null">
+				password,
+			</if>
+			<if test="userName != null">
+				userName,
+			</if>
+			<if test="id != null">
+				id,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="password != null">
+				#{password, jdbcType=VARCHAR},
+			</if>
+			<if test="userName != null">
+				#{userName, jdbcType=VARCHAR},
+			</if>
+			<if test="id != null">
+				#{id, jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	
+</mapper>

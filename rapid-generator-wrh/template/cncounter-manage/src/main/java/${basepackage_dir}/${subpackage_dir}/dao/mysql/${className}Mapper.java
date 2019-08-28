@@ -6,7 +6,6 @@
 package ${basepackage}.${subpackage}.dao.mysql;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,10 +15,8 @@ import ${basepackage}.${subpackage}.model.${className};
 public interface ${className}Mapper {
     
     ${className} getById(Integer id);
-    
-    int countBy(Map<String, Object> params);
 
-    List<${className}> listPage(Map<String, Object> params);
+    List<${className}> listPage(${className} ${classNameLower});
     
     int insert(${className} ${classNameLower});
     

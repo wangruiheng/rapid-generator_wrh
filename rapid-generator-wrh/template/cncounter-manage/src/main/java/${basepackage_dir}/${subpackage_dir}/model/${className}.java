@@ -12,10 +12,11 @@ import java.util.Date;
  * @version 1.0
  * @author
  */
-public class ${className} implements Serializable {
+public class ${className} extends PageInfo implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	<#list table.columns as column>
-	// ${column.columnAlias}
 	private ${column.simpleJavaType} ${column.columnNameLower};
 	</#list>
 		

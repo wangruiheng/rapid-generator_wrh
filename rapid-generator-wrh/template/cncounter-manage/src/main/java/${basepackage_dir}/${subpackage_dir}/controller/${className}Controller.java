@@ -6,121 +6,68 @@ package ${basepackage}.${subpackage}.controller;
 
 import java.util.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
-import ${basepackage}.${subpackage}.mvc.controller.base.ControllerBase;
-import ${basepackage}.util.common.StringNumberUtil;
-import ${basepackage}.${subpackage}.mvc.msg.JSONMessage;
 import ${basepackage}.${subpackage}.model.${className};
 import ${basepackage}.${subpackage}.service.${className}Service;
-
+import ${basepackage}.${subpackage}.exception.ResultUtils;
 /**
  * @version 1.0
  * @author 
  */
-@Controller
+@RestController
 @RequestMapping("/${subpackage}/${classNameLower}")
-public class ${className}Controller extends ControllerBase {
+@Validated
+public class ${className}Controller{
     
     @Autowired
     private ${className}Service ${classNameLower}Service;
     
 	@RequestMapping(value = "/list.json")
 	@ResponseBody
-	public JSONMessage list(HttpServletRequest request) {
-		// get params
-		Map<String, Object> params = parseParamMapObject(request);
-        processPageParams(params);
-		//
-		Integer count = ${classNameLower}Service.countBy(params);
-		List<${className}> ${classNameLower}List = ${classNameLower}Service.listPage(params);
-		//
-		JSONMessage jsonMessage = JSONMessage.successMessage();
-		jsonMessage.setTotal(count);
-		jsonMessage.setData(${classNameLower}List);
-
-		return jsonMessage;
+	public Object list(HttpServletRequest request,${className} ${classNameLower}) {
+		PageHelper.startPage(${classNameLower}.getPage(), ${classNameLower}.getLimit());
+		List<${className}> list = ${classNameLower}Service.listPage(${classNameLower});
+		PageInfo<${className}> pageInfo = new PageInfo<${className}>(list);
+		return ResultUtils.successlist(list,pageInfo.getTotal());
 	}
 
 	@RequestMapping(value = "/add.json", method = RequestMethod.POST)
-	@ResponseBody
-	public JSONMessage doAdd(HttpServletRequest request) {
-		// get params
-		Map<String, Object> params = parseParamMapObject(request);
-		//
-		${className} ${classNameLower} = new ${className}();
-		//
-		map2Bean(params, ${classNameLower});
-		//
-		
-		//
-		JSONMessage jsonMessage = JSONMessage.failureMessage();
-        try{
-			Integer rows = ${classNameLower}Service.add(${classNameLower});
-            if(rows > 0){
-                jsonMessage = JSONMessage.successMessage();
-            }
-        } catch(Exception ex){
-            logger.error("操作失败",ex);
-        }
-		return jsonMessage;
+	public Object doAdd(HttpServletRequest request,${className} ${classNameLower}) {
+		int num = ${classNameLower}Service.add(${classNameLower});
+		if(num>0) {
+			return ResultUtils.success("");
+		}
+		return ResultUtils.fail("");
 	}
 	
 
 	@RequestMapping(value = "/edit.json", method = RequestMethod.POST)
-	@ResponseBody
-	public JSONMessage doEdit(HttpServletRequest request) {
-		// get params
-		Map<String, Object> params = parseParamMapObject(request);
-		//
-		${className} ${classNameLower} = new ${className}();
-		//
-		map2Bean(params, ${classNameLower});
-		//
-
-		//
-		JSONMessage jsonMessage = JSONMessage.failureMessage();
-        try{
-			Integer rows = ${classNameLower}Service.update(${classNameLower});
-            if(rows > 0){
-                jsonMessage = JSONMessage.successMessage();
-            }
-        } catch(Exception ex){
-            logger.error("操作失败",ex);
-        }
-		return jsonMessage;
+	public Object doEdit(HttpServletRequest request,${className} ${classNameLower}) {
+		int num = ${classNameLower}Service.update(${classNameLower});
+		if(num>0) {
+			return ResultUtils.success("");
+		}
+		return ResultUtils.fail("");
 	}
 	
 
 	@RequestMapping(value = "/delete.json", method = RequestMethod.POST)
-	@ResponseBody
-	public JSONMessage delete(HttpServletRequest request) {
-		// get params
-		Map<String, Object> params = parseParamMapObject(request);
-		//
-		Integer id = 0;
-		Object _id = params.get("id");
-		if(null != _id && StringNumberUtil.isLong(_id.toString())){
-			id = StringNumberUtil.parseInt(_id.toString(), 0);
+	public Object delete(HttpServletRequest request,int id) {
+		int num = ${classNameLower}Service.delete(id);
+		if(num>0) {
+			return ResultUtils.success("");
 		}
-		//
-		JSONMessage jsonMessage = JSONMessage.failureMessage();
-        try{
-			Integer rows = ${classNameLower}Service.delete(id);
-            if(rows > 0){
-                jsonMessage = JSONMessage.successMessage();
-            }
-        } catch(Exception ex){
-            logger.error("操作失败",ex);
-        }
-		return jsonMessage;
+		return ResultUtils.fail("");
 	}
 
 }
