@@ -1,4 +1,3 @@
-<#include "/java_copyright.include">
 <#assign className = table.className>
 <#assign classNameLower = className?uncap_first>
 <#assign shortName = table.shortName>
@@ -22,7 +21,7 @@ import ${basepackage}.${subpackage}.service.${className}Service;
 import ${basepackage}.${subpackage}.exception.ResultUtils;
 /**
  * @version 1.0
- * @author 
+ * @author wrh
  */
 @RestController
 @RequestMapping("/${subpackage}/${classNameLower}")

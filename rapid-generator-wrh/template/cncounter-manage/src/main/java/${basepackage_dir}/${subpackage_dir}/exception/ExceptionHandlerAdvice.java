@@ -1,5 +1,4 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
 package ${basepackage}.${subpackage}.exception;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
@@ -12,6 +11,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * @version 1.0
  * 错误统一处理
  * @author wrh
  *

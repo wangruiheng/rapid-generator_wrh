@@ -14,7 +14,8 @@ import ${basepackage}.${subpackage}.model.${className};
 import ${basepackage}.${subpackage}.dao.mysql.${className}Mapper;
 
 /**
- * <一句话功能简述>
+ * @version 1.0
+ * @author wrh
  */
 @Service
 @Transactional(rollbackFor = Exception.class)

@@ -1,7 +1,9 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
 package ${basepackage}.${subpackage}.model;
-
+/**
+ * @version 1.0
+ * @author wrh
+ */
 public class PageInfo {
 	
 	private int page = 1;

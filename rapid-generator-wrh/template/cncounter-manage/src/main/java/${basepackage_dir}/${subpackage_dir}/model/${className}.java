@@ -1,5 +1,4 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first> 
 package ${basepackage}.${subpackage}.model;
@@ -10,7 +9,7 @@ import java.util.Date;
 /**
  * ${table.tableAlias}
  * @version 1.0
- * @author
+ * @author wrh
  */
 public class ${className} extends PageInfo implements Serializable {
 	

@@ -1,10 +1,10 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
 package ${basepackage}.${subpackage}.exception;
 
 /**
+ * @version 1.0
  * 结果异常 ExceptionHandler捕捉并返回给前端
- * @author wangruiheng
+ * @author wrh
  */
 public class ResultException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

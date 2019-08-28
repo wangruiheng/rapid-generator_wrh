@@ -1,5 +1,4 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
 <#assign className = table.className>   
 <#assign classNameLower = className?uncap_first>
 <#assign shortName = table.shortName>
@@ -10,7 +9,10 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import ${basepackage}.${subpackage}.model.${className};
-
+/**
+ * @version 1.0
+ * @author wrh
+ */
 @Repository
 public interface ${className}Mapper {
     

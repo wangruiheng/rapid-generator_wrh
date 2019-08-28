@@ -1,9 +1,9 @@
 <#include "/macro.include"/>
-<#include "/java_copyright.include">
 package ${basepackage}.${subpackage}.exception;
 
 /**
- * @author wangruiheng
+ * @version 1.0
+ * @author wrh
  */
 public class Result<T> {
 
